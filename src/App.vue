@@ -21,9 +21,9 @@ export default defineComponent({
     axios.request({
           method: "get",
           maxBodyLength: Infinity,
-          url: "https://saas24.shintheo.com/api/business.resource/search",
+          url: "https://willonhair.shintheo.com/api/business.resource/search",
           headers: {
-            "api-key": "JRYVR93DXSLAN45W0J4AG9OBY99AHOHG",
+            "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
           },
         })
         .then((response) => {
@@ -34,10 +34,10 @@ export default defineComponent({
           let config5 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/v1/image/business.resource/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
+  url: 'https://willonhair.shintheo.com/api/v1/image/business.resource/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic YXJtZWxkb3VhbmxhNzc2QGdtYWlsLmNvbTphemVydHkxMjM=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
   }
 };
 
@@ -52,9 +52,9 @@ axios.request(config5)
 axios.request({
             method: "get",
             maxBodyLength: Infinity,
-            url: "https://saas24.shintheo.com/api/appointment.product/search",
+            url: "https://willonhair.shintheo.com/api/appointment.product/search",
             headers: {
-              "api-key": "JRYVR93DXSLAN45W0J4AG9OBY99AHOHG",
+              "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
             },
           })
           .then((response) => {
@@ -62,10 +62,10 @@ axios.request({
               let config6 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/v1/image/product.template/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
+  url: 'https://willonhair.shintheo.com/api/v1/image/product.template/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic YXJtZWxkb3VhbmxhNzc2QGdtYWlsLmNvbTphemVydHkxMjM=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
   }
 };
 
@@ -93,9 +93,9 @@ axios.request(config6)
         axios.request({
         method: "get",
         maxBodyLength: Infinity,
-        url: "https://saas24.shintheo.com/api/business.resource.type/search",
+        url: "https://willonhair.shintheo.com/api/business.resource.type/search",
         headers: {
-          "api-key": "JRYVR93DXSLAN45W0J4AG9OBY99AHOHG",
+          "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
           
         },
       })
@@ -105,10 +105,10 @@ axios.request(config6)
           let config = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/v1/image/business.resource.type/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
+  url: 'https://willonhair.shintheo.com/api/v1/image/business.resource.type/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic YXJtZWxkb3VhbmxhNzc2QGdtYWlsLmNvbTphemVydHkxMjM=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
   }
 };
 

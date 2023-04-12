@@ -11,7 +11,7 @@
           <div class="d-flex flex-center flex-column mb-5">
             <!--begin::Avatar-->
             <div v-if="image" class="symbol symbol-100px symbol-circle mb-7">
-              <img :src="'https://saas24.shintheo.com/api/v1/image/res.partner/'+ profile +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="image" />
+              <img :src="'https://willonhair.shintheo.com/api/v1/image/res.partner/'+ profile +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="image" />
             </div>
             <div v-else class="symbol symbol-100px symbol-circle mb-7">
               <img src="@/assets/img/person.png" alt="image" />
@@ -40,7 +40,9 @@
                 class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3"
               >
                 <div class="fs-4 fw-bold text-gray-700">
-                  <span class="w-75px">{{ client_points }}</span>
+                  <span v-if="client_points  != ''" class="w-75px">{{ client_points }}</span>
+                  <span v-else class="w-50px">{{ 0 }}</span>
+
                   <KTIcon icon-name="arrow-up" icon-class="fs-3 text-success" />
                 </div>
                 <div class="fw-semobold text-muted">Point(s)</div>
@@ -51,7 +53,9 @@
                 class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3"
               >
                 <div class="fs-4 fw-bold text-gray-700">
-                  <span class="w-50px">{{client_bonus }}</span>
+                  <span v-if="client_bonus != ''" class="w-50px">{{client_bonus }}</span>
+                  <span v-else class="w-50px">{{ 0 }}</span>
+
                   <KTIcon icon-name="arrow-up" icon-class="fs-3 text-success" />
                 </div>
                 <div class="fw-semobold text-muted">Bonus</div>
@@ -140,9 +144,9 @@ export default defineComponent({
 let config1 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/manager.points/search',
+  url: 'https://willonhair.shintheo.com/api/manager.points/search',
   headers: { 
-    'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG', 
+    'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
     'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
   }
 };
@@ -160,9 +164,9 @@ axios.request(config1)
 let config3 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/res.partner/'+ localStorage.getItem("current_user_partnerId"),
+  url: 'https://willonhair.shintheo.com/api/res.partner/'+ localStorage.getItem("current_user_partnerId"),
   headers: { 
-    'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG', 
+    'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
   }
 };
 
@@ -178,10 +182,10 @@ axios.request(config3)
     let config2 = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://saas24.shintheo.com/api/v1/image/res.partner/${1}/image_1920?unique=true&filename_field=name&file_response=true`,
+      url: `https://willonhair.shintheo.com/api/v1/image/res.partner/${1}/image_1920?unique=true&filename_field=name&file_response=true`,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic YXJtZWxkb3VhbmxhNzc2QGdtYWlsLmNvbTphemVydHkxMjM=',
+        'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
       }
     };
     axios.request(config2)
@@ -198,9 +202,9 @@ axios.request(config3)
         let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://saas24.shintheo.com/api/res.users/${this.userId}`,
+      url: `https://willonhair.shintheo.com/api/res.users/${this.userId}`,
       headers: {
-        'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG',
+        'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
       }
     };
     axios.request(config)

@@ -11,7 +11,7 @@
 
 
         <div v-if="image" class="symbol symbol-50px me-5">
-              <img :src="'https://saas24.shintheo.com/api/v1/image/res.partner/'+ profile +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="image" />
+              <img :src="'https://willonhair.shintheo.com/api/v1/image/res.partner/'+ profile +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="image" />
             </div>
             <div v-else class="symbol symbol-50px me-5">
               <img src="@/assets/img/person.png" alt="image" />
@@ -78,10 +78,10 @@ export default defineComponent({
     let config2 = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://saas24.shintheo.com/api/v1/image/res.partner/${this.profile}/image_1920?unique=true&filename_field=name&file_response=true`,
+      url: `https://willonhair.shintheo.com/api/v1/image/res.partner/${this.profile}/image_1920?unique=true&filename_field=name&file_response=true`,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic YXJtZWxkb3VhbmxhNzc2QGdtYWlsLmNvbTphemVydHkxMjM=',
+        'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
         'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
       }
     };
@@ -96,9 +96,9 @@ export default defineComponent({
       let config3 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/res.partner/'+ localStorage.getItem("current_user_partnerId"),
+  url: 'https://willonhair.shintheo.com/api/res.partner/'+ localStorage.getItem("current_user_partnerId"),
   headers: { 
-    'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG', 
+    'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
   }
 };
 

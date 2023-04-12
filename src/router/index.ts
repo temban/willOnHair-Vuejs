@@ -424,6 +424,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
+    
     component: () => import("@/layouts/AuthLayout.vue"),
     children: [
       {

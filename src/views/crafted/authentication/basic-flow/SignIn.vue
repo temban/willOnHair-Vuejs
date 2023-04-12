@@ -153,7 +153,7 @@ export default defineComponent({
 let data = ({
   "jsonrpc": "2.0",
   "params": {
-    "db": "saas24",
+    "db": "willonhair",
     "login": this.email,
     "password": this.password
   }
@@ -162,7 +162,7 @@ let data = ({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/web/session/authenticate',
+  url: 'https://willonhair.shintheo.com/web/session/authenticate',
   headers: { 
     'Content-Type': 'application/json', 
     'Cookie': 'session_id=5c61fbc8179eeefbe3247e2649ddb6c7db76ec0b',

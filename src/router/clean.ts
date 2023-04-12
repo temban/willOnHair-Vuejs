@@ -9,7 +9,7 @@ import { useConfigStore } from "@/stores/config";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/dashboard",
+    redirect: "/sign-in",
     component: () => import("@/layouts/main-layout/MainLayout.vue"),
 
     children: [

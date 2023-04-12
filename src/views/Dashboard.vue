@@ -1,6 +1,6 @@
 <template>
  <div class="row g-5 g-xl-8">
-    <div class="col-xl-6">
+    <div class="col-xl-6" v-if="client_points  != ''">
       <StatisticsWidget6
         widget-classes="card-xl-stretch mb-xl-8"
         color="success"
@@ -9,9 +9,18 @@
         :progress="client_points"
       ></StatisticsWidget6>
     </div>
+    <div class="col-xl-6" v-else>
+      <StatisticsWidget6
+        widget-classes="card-xl-stretch mb-xl-8"
+        color="success"
+        title="points"
+        description="My Points"
+        progress="0"
+      ></StatisticsWidget6>
+    </div>
 
 
-    <div class="col-xl-6">
+    <div class="col-xl-6" v-if="client_bonus  != ''">
       <StatisticsWidget6
         widget-classes="card-xl-stretch mb-xl-8"
         color="primary"
@@ -20,7 +29,17 @@
         :progress="client_bonus"
       ></StatisticsWidget6>
     </div>
+    <div class="col-xl-6" v-else>
+      <StatisticsWidget6
+        widget-classes="card-xl-stretch mb-xl-8"
+        color="primary"
+        title="bonus"
+        description="My Bonus"
+        progress="0"
+      ></StatisticsWidget6>
+    </div>
   </div>
+  
 
 
  <div class="row g-5 g-xl-8">
@@ -137,9 +156,9 @@ export default defineComponent({
 let config1 = {
   method: 'get',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/api/manager.points/search',
+  url: 'https://willonhair.shintheo.com/api/manager.points/search',
   headers: { 
-    'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG', 
+    'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
     'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
   }
 };
@@ -156,9 +175,9 @@ axios.request(config1)
         let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://saas24.shintheo.com/api/res.users/${this.userId}`,
+      url: `https://willonhair.shintheo.com/api/res.users/${this.userId}`,
       headers: {
-        'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG',
+        'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
         'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
       }
     };

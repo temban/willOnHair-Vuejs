@@ -261,7 +261,7 @@ let signIn = () => {
   let data = ({
   "jsonrpc": "2.0",
   "params": {
-    "db": "saas24",
+    "db": "willonhair",
     "login": this.email,
     "password": this.password
   }
@@ -270,7 +270,7 @@ let signIn = () => {
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://saas24.shintheo.com/web/session/authenticate',
+  url: 'https://willonhair.shintheo.com/web/session/authenticate',
   headers: { 
     'Content-Type': 'application/json', 
     'Cookie': 'session_id=5c61fbc8179eeefbe3247e2649ddb6c7db76ec0b',
@@ -287,10 +287,9 @@ axios.request(config)
   localStorage.setItem('current_user_name', JSON.parse(JSON.stringify(response.data.result.name)))
   localStorage.setItem('current_username_email', JSON.parse(JSON.stringify(response.data.result.username)))
 
-  router.push({ path: '/dashboard' })
-          router.push({ name: "dashboard" });
-      
-   window.location.href = "/WillOnHair/dashboard";
+  // router.push({ path: '/dashboard' })
+  // router.push({ name: "/dashboard" });
+  window.location.href = "/#/dashboard";
 })
 .catch((error: any) => {
   console.log(error);
@@ -317,9 +316,9 @@ axios.request(config)
     var config = {
       method: 'post',
     maxBodyLength: Infinity,
-      url: 'https://saas24.shintheo.com/api/res.users/create',
+      url: 'https://willonhair.shintheo.com/api/res.users/create',
       headers: { 
-        'api-key': 'JRYVR93DXSLAN45W0J4AG9OBY99AHOHG', 
+        'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
         'Content-Type': 'text/plain', 
         'Cookie': 'session_id=8acf452f96b17d1fb0735edd33f6b5a9c8a21058'
       },
