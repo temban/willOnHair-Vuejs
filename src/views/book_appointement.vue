@@ -115,6 +115,7 @@
                     <!--end::Notice-->
                   </div>
                   <!--end::Heading-->
+                  
 
                   <!--begin::Input group-->
                   <div class="fv-row">
@@ -365,7 +366,8 @@
                         showIcon
                         v-model="dateTest"
                         touchUI
-                        dateFormat="yy-mm-dd"
+                        dateFormat="yy/mm/dd"
+                        :minDate="tomorrow"
                         style="width: 100%"
                         :disabledDays="propertyValues"
                       />
@@ -481,7 +483,7 @@
         </time>
       </section>
       <section class="card-cont">
-        <h3>Employee: {{ employeeName }} </h3>
+        <h3>Employee: {{ employeeName + employeeId}} </h3>
         <h6>Service: {{ serviceName.split(">")[0] }} <br/></h6>
         <h6>Service Price: {{servicePrice}}$</h6>
 
@@ -645,7 +647,7 @@ export default defineComponent({
       serviceProductId:"",
       dateTest: "",
       servicePrice:"",
-      currentDate:"",
+      currentDate:Date(),
       addMins:1800,
       date: "04-04-2023", 
       date1: "2023-04-14",
@@ -715,8 +717,10 @@ export default defineComponent({
   },
   created(){
     
+
+    
 let stringDate = Date();
-this.minDate = Date();
+
 let d1 =  JSON.stringify(new Date(stringDate));
 let p1 = d1.split('"')[1] 
 let d2 = p1.split('"')[0] 
@@ -724,8 +728,6 @@ var date = new Date(d2)
 let date1 = date.toDateString()
 
 this.currentDate = date1
-
-
 
 
 
@@ -751,7 +753,6 @@ this.currentDate = date1
             url: "https://willonhair.shintheo.com/api/appointment.product/search",
             headers: {
               "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-              Cookie: "session_id=64a17f2198105caa0e711024319531e92ad4e4c6",
             },
           })
           .then((response) => {
@@ -777,7 +778,6 @@ this.currentDate = date1
           url: "https://willonhair.shintheo.com/api/business.resource/search",
           headers: {
             "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-            Cookie: "session_id=5c61fbc8179eeefbe3247e2649ddb6c7db76ec0b",
           },
         })
         .then((response: {data: any }) => {
@@ -810,10 +810,10 @@ this.currentDate = date1
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "https://willonhair.shintheo.com/api/resource.calendar/1",
+        url: "https://willonhair.shintheo.com/api/resource.calendar/"+calendarIds,
         headers: {
           "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-          Cookie: "session_id=64a17f2198105caa0e711024319531e92ad4e4c6",
+          
         },
       };
       axios
@@ -858,7 +858,7 @@ this.currentDate = date1
         url: "https://willonhair.shintheo.com/api/resource.calendar.attendance/search",
         headers: {
           "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-          Cookie: "session_id=64a17f2198105caa0e711024319531e92ad4e4c6",
+          
         },
       };
 
@@ -938,7 +938,6 @@ this.loading = true;
       url:`https://willonhair.shintheo.com/api/product.template/${serviceProductId.toString()}`,
       headers: { 
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
-        'Cookie': 'session_id=6003348997fb4441c2d76570e58439989f4adbb1'
       }
     };
     axios.request(config1)
@@ -1031,7 +1030,7 @@ let compar = () =>{
         url: "https://willonhair.shintheo.com/api/resource.calendar.attendance/search",
         headers: {
           "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-          Cookie: "session_id=64a17f2198105caa0e711024319531e92ad4e4c6",
+          
         },
       };
 
@@ -1118,7 +1117,7 @@ console.log("hourTo", hourTo);
             url: "https://willonhair.shintheo.com/api/business.appointment/search",
             headers: {
               "api-key": "NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67",
-              Cookie: "session_id=64a17f2198105caa0e711024319531e92ad4e4c6",
+              
             },
           };
           axios
@@ -1186,6 +1185,9 @@ console.log("hourTo", hourTo);
         
     },
 
+
+    
+
    formSubmit() {
 this.loading = true;
 var data = JSON.stringify({
@@ -1205,7 +1207,6 @@ var data = JSON.stringify({
     headers: {
       'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
       'Content-Type': 'text/plain',
-    //   'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
     },
     data: data
   };
@@ -1248,7 +1249,7 @@ customClass: {
     const createAccountRef = ref<HTMLElement | null>(null);
     const createAccountModalRef = ref<HTMLElement | null>(null);
     const currentStepIndex = ref(0);
-
+    var tomorrow = new Date();
     const formData = ref<KTCreateApp>({
       Category: "",
       ressources: "",
@@ -1257,6 +1258,12 @@ customClass: {
     });
 
     onMounted(() => {
+
+
+
+tomorrow.setDate(tomorrow.getDate()+1);
+
+console.log("+1111111", tomorrow.toLocaleDateString())
       _stepperObj.value = StepperComponent.createInsance(
         createAccountRef.value as HTMLElement
       );
@@ -1338,7 +1345,8 @@ customClass: {
       services,
       employeeHoursPerDay,
       employees,
-      categories
+      categories,
+      tomorrow
     };
   },
 });

@@ -169,7 +169,6 @@ export default defineComponent({
       url: 'https://willonhair.shintheo.com/api/business.appointment/search',
       headers: {
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
-        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
       }
     };
     axios.request(config)
@@ -195,7 +194,6 @@ export default defineComponent({
       url: 'https://willonhair.shintheo.com/api/business.appointment/search',
       headers: {
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
-        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
       }
     };
     axios.request(config)

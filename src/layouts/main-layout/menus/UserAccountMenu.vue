@@ -41,7 +41,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <router-link to="/pages/profile/overview" class="menu-link px-5">
+      <router-link to="/crafted/account/overview" class="menu-link px-5">
         My Profile
       </router-link>
     </div>
@@ -72,6 +72,7 @@ export default defineComponent({
     return{
       image:"",
       profile:localStorage.getItem("current_user_partnerId"),
+      img:"",
     }
   },
   mounted(){
@@ -82,7 +83,9 @@ export default defineComponent({
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
-        'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
       }
     };
     axios.request(config2)
@@ -105,7 +108,7 @@ export default defineComponent({
 axios.request(config3)
 .then((response) => {
   this.image = response.data.data[0].image_1920;
-  console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
+  // console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
 })
 .catch((error) => {
   console.log(error);

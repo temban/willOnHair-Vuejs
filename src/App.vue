@@ -37,7 +37,10 @@ export default defineComponent({
   url: 'https://willonhair.shintheo.com/api/v1/image/business.resource/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==', 
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
   }
 };
 
@@ -65,7 +68,10 @@ axios.request({
   url: 'https://willonhair.shintheo.com/api/v1/image/product.template/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==', 
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
   }
 };
 
@@ -108,7 +114,10 @@ axios.request(config6)
   url: 'https://willonhair.shintheo.com/api/v1/image/business.resource.type/'+response.data.data[i].id+'/image_1920?unique=true&filename_field=name&file_response=true',
   headers: { 
     'Content-Type': 'application/json', 
-    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==M=', 
+    'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==', 
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
   }
 };
 

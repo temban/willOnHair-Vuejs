@@ -143,8 +143,8 @@ export default defineComponent({
 
   data() {
       return {
-        email:"diegomaradona@gmail.com",
-        password:"123456"
+        email:"michel@gmail.com",
+        password:"azerty123"
       }
     },
   created() {},
@@ -165,7 +165,6 @@ let config = {
   url: 'https://willonhair.shintheo.com/web/session/authenticate',
   headers: { 
     'Content-Type': 'application/json', 
-    'Cookie': 'session_id=5c61fbc8179eeefbe3247e2649ddb6c7db76ec0b',
   },
   data : data
 };
@@ -173,7 +172,7 @@ let config = {
 axios.request(config)
 .then((response: { data: any }) => {
   //setUserid(JSON.stringify(response.data));
-  console.log(JSON.stringify(response.data));
+  console.log(response.data);
   localStorage.setItem('current_user_id', JSON.parse(JSON.stringify(response.data.result.uid)))
   localStorage.setItem('current_user_partnerId',JSON.stringify(response.data.result.partner_id))
   localStorage.setItem('current_user_name', JSON.parse(JSON.stringify(response.data.result.name)))

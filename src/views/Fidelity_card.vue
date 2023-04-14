@@ -147,7 +147,6 @@ let config1 = {
   url: 'https://willonhair.shintheo.com/api/manager.points/search',
   headers: { 
     'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
-    'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
   }
 };
 
@@ -161,7 +160,27 @@ axios.request(config1)
 });
 
 
-let config3 = {
+let config2 = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `https://willonhair.shintheo.com/api/v1/image/res.partner/${this.profile}/image_1920?unique=true&filename_field=name&file_response=true`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
+      }
+    };
+    axios.request(config2)
+      .then((response) => {
+         
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      let config3 = {
   method: 'get',
   maxBodyLength: Infinity,
   url: 'https://willonhair.shintheo.com/api/res.partner/'+ localStorage.getItem("current_user_partnerId"),
@@ -173,30 +192,11 @@ let config3 = {
 axios.request(config3)
 .then((response) => {
   this.image = response.data.data[0].image_1920;
-  console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
+  // console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
 })
 .catch((error) => {
   console.log(error);
 });
-
-    let config2 = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: `https://willonhair.shintheo.com/api/v1/image/res.partner/${1}/image_1920?unique=true&filename_field=name&file_response=true`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
-      }
-    };
-    axios.request(config2)
-      .then((response) => {
-         this.profile = JSON.stringify(response);
-        //  console.log(this.profile);
-         
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   
 
         let config = {

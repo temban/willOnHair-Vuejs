@@ -54,7 +54,7 @@
         data-kt-menu-flip="bottom"
       >
       <img  v-if="!image" src="@/assets/img/person.png" alt="metronic" />  
-      <img v-else :src="'https://willonhair.shintheo.com/api/v1/image/res.partner/'+ 1 +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="metronic" />
+      <img v-else :src="'https://willonhair.shintheo.com/api/v1/image/res.partner/'+ profile +'/image_1920?unique=true&filename_field=name&file_response=true'" alt="metronic" />
             </div>
       <KTUserMenu></KTUserMenu>
       <!--end::Menu-->
@@ -104,7 +104,9 @@ export default defineComponent({
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
-        'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
       }
     };
     axios.request(config2)

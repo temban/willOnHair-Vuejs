@@ -115,15 +115,22 @@
    </td>
 
                 <td class="text-end">
-                  <a v-if="item.state !== 'done'" 
+                  <a v-if=" item.state === 'cancel'"
                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                   >
-                    <KTIcon icon-name="trash" icon-class="fs-3" />
+                  <i class="fa fa-ban" style="font-size:25px;color:red"></i>                  
+                </a>
+
+                  <a v-else-if=" item.state === 'reserved'"  @click="cancelAppointement(item.id)"
+                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                  >
+                  <KTIcon icon-name="trash" icon-class="fs-3" />
                   </a>
-                  <a v-else
+
+                  <a v-else-if=" item.state === 'done'" 
                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
                   >
-                   blocked
+                 <i class="fa fa-check" style="font-size:25px;color:green"></i>
                   </a>
                 </td>
               </tr>
@@ -143,16 +150,18 @@
 <script lang="ts">
 import { getAssetPath } from "@/core/helpers/assets";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { defineComponent } from "vue";
 
 declare interface userAppointment {
   resource_id: any,
-    state: string,
+    state: any,
     service_id: any,
     
     datetime_start: string,
     datetime_end: string,
     name: any,
+    id:any
 
   }
 
@@ -178,7 +187,6 @@ export default defineComponent({
       url: 'https://willonhair.shintheo.com/api/business.appointment/search',
       headers: {
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
-        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
       }
     };
     axios.request(config)
@@ -199,25 +207,52 @@ export default defineComponent({
       });
    },
     methods: {
-    cancelAppointement(){
-    let config = {
-      method: 'get',
+    cancelAppointement(id){
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+
+
+          let config = {
+      method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://willonhair.shintheo.com/api/business.appointment/search',
+      url: 'https://willonhair.shintheo.com/api/v1/call/business.appointment/action_cancel?ids=['+id+']',
       headers: {
-        'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
-        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ZnJpZWRyaWNoOmF6ZXJ0eTEyMw==',
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": 0
       }
     };
+
     axios.request(config)
       .then((response) => {
-        
+       // console.log(JSON.stringify(response.data));
+       Swal.fire(
+                "Deleted!",
+                "Your file has been deleted.",
+                "success"
+            )
+            window.location.reload();
       })
+     
       .catch((error) => {
         console.log(error);
       });
-    }
+            // result.dismiss can be "cancel", "overlay",
+            // "close", and "timer"
+        }
+    });
     },
+  },
   setup() {
 
     return {

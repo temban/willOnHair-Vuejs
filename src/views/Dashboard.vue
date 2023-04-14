@@ -159,7 +159,6 @@ let config1 = {
   url: 'https://willonhair.shintheo.com/api/manager.points/search',
   headers: { 
     'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
-    'Cookie': 'session_id=a96c7e60605a2d90760c95e656606a6abd4ece91'
   }
 };
 
@@ -178,7 +177,6 @@ axios.request(config1)
       url: `https://willonhair.shintheo.com/api/res.users/${this.userId}`,
       headers: {
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
-        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
       }
     };
     axios.request(config)

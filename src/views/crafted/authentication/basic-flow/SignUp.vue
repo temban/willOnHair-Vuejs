@@ -273,7 +273,6 @@ let config = {
   url: 'https://willonhair.shintheo.com/web/session/authenticate',
   headers: { 
     'Content-Type': 'application/json', 
-    'Cookie': 'session_id=5c61fbc8179eeefbe3247e2649ddb6c7db76ec0b',
   },
   data : data
 };
@@ -281,7 +280,7 @@ let config = {
 axios.request(config)
 .then((response: { data: any }) => {
   //setUserid(JSON.stringify(response.data));
-  console.log(JSON.stringify(response.data));
+  console.log(response.data);
   localStorage.setItem('current_user_id', JSON.parse(JSON.stringify(response.data.result.uid)))
   localStorage.setItem('current_user_partnerId',JSON.stringify(response.data.result.partner_id))
   localStorage.setItem('current_user_name', JSON.parse(JSON.stringify(response.data.result.name)))
@@ -311,7 +310,7 @@ axios.request(config)
       var data = {name: this.first_name +" "+ this.last_name ,
         login:this.email,
         password: this.password,
-        sel_groups_1_9_10:1};
+        sel_groups_1_9_10:10};
     
     var config = {
       method: 'post',
@@ -320,7 +319,6 @@ axios.request(config)
       headers: { 
         'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67', 
         'Content-Type': 'text/plain', 
-        'Cookie': 'session_id=8acf452f96b17d1fb0735edd33f6b5a9c8a21058'
       },
       data : data
     };
