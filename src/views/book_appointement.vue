@@ -181,7 +181,7 @@
                 data-kt-stepper-element="content"
                 style="
                   box-shadow: 1px 2px 9px #000;
-                  padding: 1rem 1rem;
+                  padding: 1rem 1rem; 
                   width: 70rem;
                   max-width: 100%;
                 "
@@ -303,8 +303,7 @@
                               service.id,
                               service.name,
                               service.product_id[0].id
-                            ) 
-                          "
+                            ), getLeaveOfResourceCalendar()"
                           class="btn border border-primary btn-outline-primary btn-outline-default d-flex align-items-center mt-5"
                           :for="service.name + service.id"
                         >
@@ -354,8 +353,11 @@
 
               <!--begin::Step 4-->
               <div data-kt-stepper-element="content">
+                
                 <!--begin::Wrapper-->
                 <div class="w-100">
+                  <!-- <Button v-styleclass="{ selector: '@next', toggleClass: 'p-disabled' }" label="Toggle p-disabled" />
+                  <InputText /> -->
                   <!--begin::Heading-->
                   <label for="date">Date</label>
 
@@ -368,20 +370,22 @@
                         touchUI
                         dateFormat="yy/mm/dd"
                         :minDate="tomorrow"
-                        style="width: 100%"
+                        style="width: 100%;"
                         :disabledDays="propertyValues"
-                      />
+                        :disabledDates="leaveDateList2"
+                      ></Calendar>
+
 
                     </div>
                     <div class="col-lg-2">
-                      <Button type="button" @click="calendarShowEmployeeHoursByDayIndex()" label="Schedule" />
+                      <Button type="button" @click="calendarShowEmployeeHoursByDayIndex()" label="Horaire" />
                     </div>
                   </div>
                   <div class="row">
                     <!--begin::Col-->
                     <div
                       class="col-lg-6"
-                      v-for="(time, index) in employeeHoursPerDay"
+                      v-for="(time, index) in employeeFilteredTimes"
                       :key="index"
                     >
                       <Field
@@ -460,15 +464,12 @@
                   <!--begin::Heading-->
                   <div class="pb-8 pb-lg-10">
                     <!--begin::Title-->
-                    <h2 class="fw-bold text-dark">Your Are Done!</h2>
+                    <h2 class="fw-bold text-dark">Vous avez presque terminé !</h2>
                     <!--end::Title-->
 
                     <!--begin::Notice-->
                     <div class="text-gray-400 fw-semobold fs-6">
-                      If you need more info, please
-                      <router-link to="/sign-in" class="link-primary fw-bold"
-                        >Sign In</router-link
-                      >.
+                      Cliquez sur le bouton Soumettre pour réserver votre rendez-vous.
                     </div>
                     <!--end::Notice-->
                   </div>
@@ -483,29 +484,47 @@
         </time>
       </section>
       <section class="card-cont">
-        <h3>Employee: {{ employeeName + employeeId}} </h3>
-        <h6>Service: {{ serviceName.split(">")[0] }} <br/></h6>
-        <h6>Service Price: {{servicePrice}}$</h6>
+        
+        <div class="even-date">
+         <i class="fa fa-user" ></i>
+         <time >
+          <h3 style="margin-left: 1rem;">Employee: {{ employeeName}} </h3>
+         </time>
+        </div>
 
+        <div class="even-date">
+         <i class="fa fa-balance-scale"></i>
+         <time >
+          <h6 style="margin-left: 1rem;">Service: {{ serviceName.split(">")[0] }} <br/></h6>
+         </time>
+        </div>
+       
+        <div class="even-date">
+         <i class="fa fa-money" ></i>
+         <time>
+          <h6 style="margin-left: 1rem;">Prix ​​des services: {{servicePrice}}$</h6>
+         </time>
+        </div>
+        
 
         <div class="even-date">
          <i class="fa fa-calendar"></i>
          <time>
-           <h6>Start Time: {{ appointementDate + " " +  start_time}} </h6>
+           <h6 style="margin-left: 1rem;">Date de début: {{ appointementDate + " " +  start_time}} </h6>
          </time>
         </div>
 
         <div class="even-date">
          <i class="fa fa-calendar" ></i>
-         <time style="margin-left: 4rem;">
-           <h6>End Time: {{ appointementDate + " " +  end_time}}</h6>
+         <time>
+           <h6 style="margin-left: 1rem;">Date de fin: {{ appointementDate + " " +  end_time}}</h6>
          </time>
         </div>
 
         <div class="even-info">
           <i class="fa fa-map-marker"></i>
-          <p>
-            nexen square for people australia, sydney
+          <p >
+           WillOnHair Belgium.
           </p>
         </div>
       </section>
@@ -536,7 +555,7 @@
                     @click="previousStep"
                   >
                     <KTIcon icon-name="arrow-left" icon-class="fs-3 me-1" />
-                    Back
+                    Retour
                   </button>
                 </div>
                 <!--end::Wrapper-->
@@ -550,7 +569,7 @@
                     @click="formSubmit()"
                   >
                     <span class="indicator-label">
-                      Submit
+                      Soumettre
                       <KTIcon
                         icon-name="arrow-right"
                         icon-class="fs-3 ms-2 me-0"
@@ -565,7 +584,7 @@
                   </button>
 
                   <button type="submit" class="btn btn-lg btn-primary" v-else>
-                    Continue
+                    Continuer
                     <KTIcon
                       icon-name="arrow-right"
                       icon-class="fs-3 ms-1 me-0"
@@ -597,6 +616,7 @@ import { StepperComponent } from "@/assets/ts/components/_StepperComponent";
 import Swal from "sweetalert2";
 import { ErrorMessage, Field, useForm } from "vee-validate";
 import Calendar from "primevue/calendar";
+import InputText from 'primevue/inputtext';
   // import jQuery from 'jquery';
 import * as Yup from "yup";
 import axios from "axios";
@@ -626,6 +646,7 @@ export default defineComponent({
     Field,
     ErrorMessage,
     Calendar,
+    InputText
   },
 
   data() {
@@ -663,6 +684,10 @@ export default defineComponent({
       weekdays: [1, 0],
       dayofweek:[Number, String],
       dayIndex:[Number, String],
+     holidyasStartDate:"",
+     holidyasEndDate:"",
+     holidyasStartTime:"",
+     holidyasEndTime:"",
     };
   },
  
@@ -704,6 +729,12 @@ export default defineComponent({
       .catch((error) => {
         console.log(error);
         this.loading = false;
+        Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
         });
       
 
@@ -768,6 +799,12 @@ this.currentDate = date1
           .catch((error) => {
             this.loading = false;
             console.log(error);
+            Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
           });
       };
 
@@ -792,11 +829,19 @@ this.currentDate = date1
         })
         .catch((error) => {
           console.log(error);
+          Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
         });
     },
 
     storeEmployeeInfo(id, name, calendarIds) {
         this.employeeCalendarAttendanceIds.length = 0;
+        this.employeeLeaveIds.length = 0;
+
         this.loading = true;
       this.employeeId = id;
       console.log("id", this.employeeId);
@@ -823,6 +868,7 @@ this.currentDate = date1
 
           // console.log(JSON.parse(JSON.stringify(response.data.data)))
           this.employeeCalendarAttendanceIds.length = 0;
+          this.employeeLeaveIds.length = 0;
           //console.log(' -->  --> '+resourceCalendar[0].attendance_ids[2].id)
           for (
             let c = 0;
@@ -837,14 +883,110 @@ this.currentDate = date1
               this.employeeCalendarAttendanceIds
             );
           }
+
+          for (
+            let i = 0;
+            i <= response.data.data[0].leave_ids.length - 1;
+            i++
+          ) {
+            this.employeeLeaveIds.push(
+              response.data.data[0].leave_ids[i].id
+            ); //get all attendance_ids of resource.calendarId selected
+            console.log(
+              "  les employeeeeeeeeeeeeeeeeeeee leave ids  -->  --> ",
+              this.employeeLeaveIds
+            );
+          }
           // console.log( listAttendanceIdsOfCalendar);
           this.loading = false;
         })
         .catch((error) => {
            this.loading = false;
           console.log(error);
+          Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
         });
     },
+
+ getLeaveOfResourceCalendar() {
+  this.holidaysStart.length =0;
+  this.holidaysEnd.length =0;
+      this.leaveDateList.length = 0;
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://willonhair.shintheo.com/api/resource.calendar.leaves/search',
+      headers: {
+        'api-key': 'NMMAG3K4IVS0L6VYEPXLJ1Z0RR77AR67',
+        'Cookie': 'session_id=64a17f2198105caa0e711024319531e92ad4e4c6'
+      }
+    };
+    axios.request(config)
+      .then((response) => {
+        let allResCalendarLeve = response.data.data;
+        for (let i = 0; i < this.employeeLeaveIds.length; i++) { 
+          for (let j = 0; j < allResCalendarLeve.length ; j++) { 
+            if (this.employeeLeaveIds[i] === allResCalendarLeve[j].id) {
+
+              this.holidaysStart.push(allResCalendarLeve[j].date_from)
+               this.holidaysEnd.push(allResCalendarLeve[j].date_to)
+               var startDate = new Date(allResCalendarLeve[j].date_from.split('T')[0]);
+               var endDate = new Date(allResCalendarLeve[j].date_to.split('T')[0]);
+
+               this.holidyasStartTime = allResCalendarLeve[j].date_from.split('T')[1];
+               this.holidyasEndTime = allResCalendarLeve[j].date_to.split('T')[1];
+               
+               this.holidyasStartDate = allResCalendarLeve[j].date_from.split('T')[0];
+               this.holidyasEndDate = allResCalendarLeve[j].date_to.split('T')[0];
+
+               var currentDate = startDate;
+               while (currentDate <= endDate) {
+                //  console.log('current date -> ', currentDate)
+                 this.leaveDateList.push(new Date(currentDate.toISOString().slice(0, 10)));
+                 currentDate.setDate(currentDate.getDate() + 1);
+               }
+
+
+               console.log('Start date', allResCalendarLeve[j].date_from);
+               console.log('end date --> ',  allResCalendarLeve[j].date_to ); 
+             }
+
+             if(this.leaveDateList.length > 2){
+          this.leaveDateList1.push(this.leaveDateList.slice(1, -1));
+          this.leaveDateList.length = 0;
+         }
+         this.leaveDateList1.concat(this.leaveDateList1)
+         console.log('jours de conges --> ',  this.leaveDateList1);
+          }
+
+        }
+
+
+        if(this.leaveDateList1.length>1){
+          for (let k = 0; k <= this.leaveDateList1.length -1; k++) {
+            for(let u=0; u<this.leaveDateList1[k].length; u++){
+              this.leaveDateList2.push(this.leaveDateList1[k][u])
+            }
+           
+          }
+        }
+       console.log('jours de conges --->  TREE',  this.leaveDateList2);
+
+      })
+      .catch((error) => {
+        console.log(error); 
+        Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
+      });
+  },
 
     storeServiceInfo(serviceId, serviceName, serviceProductId) {
         this.serviceId = serviceId;
@@ -928,8 +1070,15 @@ this.propertyValues = Object.values(array1);
         .catch((error: any) => {
           this.loading = false;
           console.log(error);
+          Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
         });
     }
+
 
 this.loading = true;
     let config1 = {
@@ -945,17 +1094,22 @@ this.loading = true;
       //console.log('resultaaaaaat => ',JSON.stringify(response.data));
       this.servicePrice = response.data.data[0].list_price
       console.log('ce service coute   -->--> ',this.servicePrice)
-      getDaysIndex()
-   
+      getDaysIndex();
     })
     .catch((error) => {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
     });
         console.log("services info",  this.serviceId,  this.serviceName, this.serviceProductId);
         
     },
 
-    calendarShowEmployeeHoursByDayIndex() {
+    calendarShowEmployeeHoursByDayIndex(){
         this.loading =true;
 
 
@@ -987,9 +1141,141 @@ let compar = () =>{
     }
   }
 }
-              console.log("freeeeeeeeee -> ", this.employeeHoursPerDay);
-            //   console.log("freeeeeeeeee -> ", this.employeeHoursPerDay);
-              this.loading =false;
+
+
+let chars:any = [];
+var SD;
+var ED;
+
+chars.length = 0;
+
+for(let k=0; k<this.holidaysStart.length; k++){
+
+  console.log('holidys ===========================-> ', this.holidaysStart[k])
+
+  if(this.holidaysStart[k].split('T')[0] == selectedDate){
+
+    SD = this.holidaysStart[k]
+    console.log('holidya exact day SD ===========================-> ', SD)
+
+    
+                   
+                    var time = '12:15:00';
+                    let Times:any = this.holidaysStart[k].split('T')[1];
+
+for(let i=0; i<this.employeeHoursPerDay.length; i++){
+
+  let str1 = this.employeeHoursPerDay[i].split(':');
+  let str2:any;  str2 = Times.split(':');
+
+let totalSeconds1 = parseInt(str1[0] * 3600 + str1[1] * 60 + str1[0]);
+let totalSeconds2 = parseInt(str2[0] * 3600 + str2[1] * 60 + str2[0]);
+
+  if (totalSeconds2 > totalSeconds1){
+    // this.employeeHoursPerDay.length = 0;
+    // this.employeeHoursPerDay = [];
+    console.log("start date working hours behind -> ", this.employeeHoursPerDay[i]);
+    chars.push(this.employeeHoursPerDay[i])
+ 
+    
+  }
+}
+                    this.loading =false;
+              
+                  }
+
+                  
+}
+
+
+for(let k=0; k<this.holidaysEnd.length; k++){
+
+console.log('holidys ===========================-> ', this.holidaysEnd[k])
+
+if(this.holidaysEnd[k].split('T')[0] == selectedDate){
+
+  ED = this.holidaysEnd[k];
+  console.log('holidya exact day ED ===========================-> ', ED)
+
+  
+                 
+                  var time = '12:15:00';
+                  let Times:any = this.holidaysEnd[k].split('T')[1];
+
+for(let i=0; i<this.employeeHoursPerDay.length; i++){
+
+let str1 = this.employeeHoursPerDay[i].split(':');
+let str2:any;  str2 = Times.split(':');
+
+let totalSeconds1 = parseInt(str1[0] * 3600 + str1[1] * 60 + str1[0]);
+let totalSeconds2 = parseInt(str2[0] * 3600 + str2[1] * 60 + str2[0]);
+
+if (totalSeconds2 < totalSeconds1){
+  // this.employeeHoursPerDay.length = 0;
+  // this.employeeHoursPerDay = [];
+  console.log("start date working hours behind -> ", this.employeeHoursPerDay[i]);
+  chars.push(this.employeeHoursPerDay[i])
+
+}
+}
+                  this.loading =false;
+            
+                }
+
+                
+}
+
+console.log("ED", ED, " SD", SD);
+
+if(ED === undefined && SD === undefined){
+  chars = this.employeeHoursPerDay;
+  // console.log("rrrrrr  -> does not exist");
+}
+
+
+this.loading =false;
+this.employeeFilteredTimes = [...new Set(chars)];
+console.log("last  -> ", this.employeeFilteredTimes);
+
+    
+                  
+//                   else if(this.holidyasEndDate == selectedDate){
+//                     console.log('holidyasStart ===========================-> ', this.holidyasEndDate, this.holidyasEndTime)
+
+//                     var time = '12:15:00';
+//                     let Times:any = [];
+
+// for(let i=0; i<this.employeeHoursPerDay.length; i++){
+
+//   let str1 = this.employeeHoursPerDay[i].split(':');
+//   let str2:any;  str2 = time.split(':');
+
+// let totalSeconds1 = parseInt(str1[0] * 3600 + str1[1] * 60 + str1[0]);
+// let totalSeconds2 = parseInt(str2[0] * 3600 + str2[1] * 60 + str2[0]);
+
+//   if (totalSeconds2 < totalSeconds1){
+//     // this.employeeHoursPerDay.length = 0;
+//     // this.employeeHoursPerDay = [];
+//     console.log("start date working hours behind -> ", this.employeeHoursPerDay[i]);
+//     this.employeeFilteredTimes.push(this.employeeHoursPerDay[i])
+ 
+//   }
+// }
+// console.log("start date working hours behind -> ", this.employeeFilteredTimes);
+           
+//                     this.loading =false;
+//                   }else{
+
+//                     console.log('holidyas ===========================-> nothing')
+//                     console.log("freeeeeeeeee -> ", this.employeeHoursPerDay);
+
+
+//                     this.employeeFilteredTimes =  this.employeeHoursPerDay;
+
+
+//                     this.loading =false;
+//                   }
+
 }
 
 
@@ -1130,13 +1416,12 @@ console.log("hourTo", hourTo);
               for (let index = 0; index < responseData.length; index++) {
                 if (
                     responseData[index].resource_id[0].id == this.employeeId &&
-                    responseData[index].datetime_start.split("T")[0] == selectedDate
+                    responseData[index].datetime_start.split("T")[0] == selectedDate &&
+                    responseData[index].state !== 'cancel'
                 ) {
-                  // console.log('ReservedHour -> ', responseData[index].datetime_start.split('T')[1])
-                  // console.log('lea -> ', responseData[index].datetime_start)
 
-                  this.employeeTakenHours.push(responseData[index].datetime_start.split("T")[1]
-                  );
+                    this.employeeTakenHours.push(responseData[index].datetime_start.split("T")[1]);
+
                 }
               }
 
@@ -1145,11 +1430,23 @@ console.log("hourTo", hourTo);
             .catch((error) => {
             this.loading = false;
               console.log(error);
+              Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
             });
         })
         .catch((error: any) => {
           this.loading = false;
           console.log(error);
+          Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
         });
     },
 
@@ -1214,7 +1511,7 @@ var data = JSON.stringify({
     .then((response) => {
         this.loading = false;
         Swal.fire({
-text: "Appointement Booked Successfully",
+text: "Rendez-vous pris avec succès",
 icon: "success",
 buttonsStyling: false,
 confirmButtonText: "Ok",
@@ -1230,6 +1527,12 @@ customClass: {
     })
     .catch((error) => {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Quelque chose s'est mal passé !",
+        showConfirmButton: false,
+        timer: 1500
+    })
     });
 
 
@@ -1243,8 +1546,20 @@ customClass: {
     let services: any[] =[];
     let propertyValues:any[] =[];
     let employeeHoursPerDay:any[] =[];
+    let employeeFilteredTimes:any[] =[];
     let employees:any[] =[];
     let categories:any[] = [];
+    let employeeLeaveIds:any[] =[];
+    let disabledDays1: any = [];
+    let leaveDateList: any = [];
+    let leaveDateList1: any = [];
+    let leaveDateList2: any = [];
+    let holidaysStart: any = [];
+    let holidaysEnd: any = [];
+
+    
+
+    disabledDays1 =[ new Date("2023/05/09"), new Date("2023/05/10") ]
     const _stepperObj = ref<StepperComponent | null>(null);
     const createAccountRef = ref<HTMLElement | null>(null);
     const createAccountModalRef = ref<HTMLElement | null>(null);
@@ -1263,7 +1578,7 @@ customClass: {
 
 tomorrow.setDate(tomorrow.getDate()+1);
 
-console.log("+1111111", tomorrow.toLocaleDateString())
+// console.log("+1111111", tomorrow.toLocaleDateString())
       _stepperObj.value = StepperComponent.createInsance(
         createAccountRef.value as HTMLElement
       );
@@ -1346,12 +1661,24 @@ console.log("+1111111", tomorrow.toLocaleDateString())
       employeeHoursPerDay,
       employees,
       categories,
-      tomorrow
+      tomorrow,
+      employeeLeaveIds,
+      disabledDays1,
+      leaveDateList,
+      employeeFilteredTimes,
+      leaveDateList1,
+      leaveDateList2,
+      holidaysStart,
+      holidaysEnd
+
     };
   },
 });
 </script>
 <style lang="scss" scoped>
+
+
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap");
 .row:after {
   content: "";
@@ -1506,10 +1833,6 @@ img {
 
 
 @import url('https://fonts.googleapis.com/css?family=Oswald');
-
-
-
-
 
 
 .card1
@@ -1673,4 +1996,6 @@ img {
     font-size: 75%
   }
 }
+
+
 </style>

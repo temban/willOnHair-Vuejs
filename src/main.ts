@@ -30,9 +30,13 @@ import "primevue/resources/primevue.min.css";
 //icons
 import "primeicons/primeicons.css";
 import Button from "primevue/button"
+import StyleClass from 'primevue/styleclass';
+                
 
 const app = createApp(App);
 app.component('Button', Button);
+app.directive('styleclass', StyleClass);
+
 app.use(createPinia());
 app.use(router);
 app.use(ElementPlus);

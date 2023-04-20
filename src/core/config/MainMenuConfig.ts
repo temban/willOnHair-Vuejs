@@ -10,19 +10,19 @@ export interface MenuItem {
 
 const MainMenuConfig: Array<MenuItem> = [
   {
-    heading: "dashboard",
+    heading: "Tableau de bord",
     route: "/dashboard",
     keenthemesIcon: "home-2",
     bootstrapIcon: "bi-bar-chart-line",
   },
   {
-    heading: "Appointement",
+    heading: "Rendez-vous",
     route: "/appointements",
     keenthemesIcon: "switch",
     bootstrapIcon: "bi-toggles",
   },
   {
-    heading: "Fidelity Card",
+    heading: "Carte de fidélité",
     route: "/fidelity_card",
     keenthemesIcon: "switch",
     bootstrapIcon: "bi-toggles",
@@ -86,17 +86,17 @@ const MainMenuConfig: Array<MenuItem> = [
         ],
       },
       {
-        sectionTitle: "account",
+        sectionTitle: "Compte",
         route: "/account",
         keenthemesIcon: "profile-circle",
         bootstrapIcon: "bi-person",
         sub: [
           {
-            heading: "accountOverview",
+            heading: "Aperçu du compte",
             route: "/crafted/account/overview",
           },
           {
-            heading: "settings",
+            heading: "Paramètres",
             route: "/crafted/account/settings",
           },
         ],

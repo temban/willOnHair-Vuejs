@@ -25,8 +25,8 @@
       >
         <!--begin::Item-->
         <li class="breadcrumb-item text-muted">
-          <router-link to="/" class="text-muted text-hover-primary"
-            >Home</router-link
+          <router-link to="/dashboard" class="text-muted text-hover-primary"
+            >Accueil</router-link
           >
         </li>
         <!--end::Item-->

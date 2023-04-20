@@ -5,7 +5,7 @@
         widget-classes="card-xl-stretch mb-xl-8"
         color="success"
         title="points"
-        description="My Points"
+        description="Mes Points"
         :progress="client_points"
       ></StatisticsWidget6>
     </div>
@@ -14,7 +14,7 @@
         widget-classes="card-xl-stretch mb-xl-8"
         color="success"
         title="points"
-        description="My Points"
+        description="Mes Points"
         progress="0"
       ></StatisticsWidget6>
     </div>
@@ -25,7 +25,7 @@
         widget-classes="card-xl-stretch mb-xl-8"
         color="primary"
         title="bonus"
-        description="My Bonus"
+        description="Mes Bonus"
         :progress="client_bonus"
       ></StatisticsWidget6>
     </div>
@@ -34,7 +34,7 @@
         widget-classes="card-xl-stretch mb-xl-8"
         color="primary"
         title="bonus"
-        description="My Bonus"
+        description="Mes Bonus"
         progress="0"
       ></StatisticsWidget6>
     </div>

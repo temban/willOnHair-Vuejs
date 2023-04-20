@@ -18,8 +18,8 @@ const routes: Array<RouteRecordRaw> = [
         name: "dashboard",
         component: () => import("@/views/Dashboard.vue"),
         meta: {
-          pageTitle: "Dashboard",
-          breadcrumbs: ["Dashboards"],
+          pageTitle: "Tableau de bord",
+          breadcrumbs: ["Tableau de bord"],
         },
       },
       {
@@ -27,8 +27,8 @@ const routes: Array<RouteRecordRaw> = [
         name: "appointements",
         component: () => import("@/views/Appointements.vue"),
         meta: {
-          pageTitle: "Appointements",
-          breadcrumbs: ["Appointements"],
+          pageTitle: "Rendez-vous",
+          breadcrumbs: ["Rendez-vous"],
         },
       },
       {
@@ -36,8 +36,8 @@ const routes: Array<RouteRecordRaw> = [
         name: "fidelity_card",
         component: () => import("@/views/Fidelity_card.vue"),
         meta: {
-          pageTitle: "Fidelity card",
-          breadcrumbs: ["Fidelity card"],
+          pageTitle: "Carte de fidélité",
+          breadcrumbs: ["Carte de fidélité"],
         },
       },
       {
@@ -45,8 +45,8 @@ const routes: Array<RouteRecordRaw> = [
         name: "book_appointement",
         component: () => import("@/views/book_appointement.vue"),
         meta: {
-          pageTitle: "Book Appointement",
-          breadcrumbs: ["Book Appointement"],
+          pageTitle: "Prendre rendez-vous",
+          breadcrumbs: ["Prendre rendez-vous"],
         },
       },
 
@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import("@/views/crafted/pages/profile/Overview.vue"),
             meta: {
-              pageTitle: "Overview",
+              pageTitle: "Aperçu",
             },
           },
           {
@@ -137,7 +137,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "account",
         component: () => import("@/views/crafted/account/Account.vue"),
         meta: {
-          breadcrumbs: ["Crafted", "Account"],
+          breadcrumbs: ["Utilisateur", "Compte"],
         },
         children: [
           {
@@ -145,7 +145,7 @@ const routes: Array<RouteRecordRaw> = [
             name: "account-overview",
             component: () => import("@/views/crafted/account/Overview.vue"),
             meta: {
-              pageTitle: "Overview",
+              pageTitle: "Aperçu",
             },
           },
           {
@@ -153,7 +153,7 @@ const routes: Array<RouteRecordRaw> = [
             name: "account-settings",
             component: () => import("@/views/crafted/account/Settings.vue"),
             meta: {
-              pageTitle: "Settings",
+              pageTitle: "Paramètres",
             },
           },
         ],

@@ -42,7 +42,7 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <router-link to="/crafted/account/overview" class="menu-link px-5">
-        My Profile
+        Mon profil
       </router-link>
     </div>
     <!--end::Menu item-->
@@ -50,7 +50,7 @@
    
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <a @click="signOut()" class="menu-link px-5"> Sign Out </a>
+      <a @click="signOut()" class="menu-link px-5"> Se déconnecter</a>
     </div>
     <!--end::Menu item-->
   </div>

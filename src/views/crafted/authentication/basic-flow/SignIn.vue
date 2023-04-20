@@ -7,20 +7,20 @@
       id="kt_login_signin_form"
       @submit="onSubmitLogin"
       :validation-schema="login"
-      :initial-values="{ email: 'admin@demo.com', password: 'demo' }"
+      :initial-values="{ email: '', password: '' }"
     >
       <!--begin::Heading-->
       <div class="text-center mb-10">
         <!--begin::Title-->
-        <h1 class="text-dark mb-3">Sign In</h1>
+        <h1 class="text-dark mb-3">S'identifier</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
         <div class="text-gray-400 fw-semobold fs-4">
-          New Here?
+          Êtes-vous nouveau ici ?
 
           <router-link to="/sign-up" class="link-primary fw-bold">
-            Create an Account
+            Créer un compte
           </router-link>
         </div>
         <!--end::Link-->
@@ -46,7 +46,6 @@
           class="form-control form-control-lg form-control-solid"
           type="text"
           name="email"
-          v-model="email"
           autocomplete="on"
         />
         <!--end::Input-->
@@ -63,12 +62,12 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-stack mb-2">
           <!--begin::Label-->
-          <label class="form-label fw-bold text-dark fs-6 mb-0">Password</label>
+          <label class="form-label fw-bold text-dark fs-6 mb-0">Mot de passe</label>
           <!--end::Label-->
 
           <!--begin::Link-->
           <router-link to="/password-reset" class="link-primary fs-6 fw-bold">
-            Forgot Password ?
+            Mot de passe oublié ?
           </router-link>
           <!--end::Link-->
         </div>
@@ -80,7 +79,6 @@
           class="form-control form-control-lg form-control-solid"
           type="password"
           name="password"
-          v-model="password"
           autocomplete="off"
         />
         <!--end::Input-->
@@ -103,7 +101,7 @@
           id="kt_sign_in_submit"
           class="btn btn-lg btn-primary w-100 mb-5"
         >
-          <span class="indicator-label"> Continue </span>
+          <span class="indicator-label"> Continuer </span>
 
           <span class="indicator-progress">
             Please wait...
@@ -144,61 +142,12 @@ export default defineComponent({
   data() {
       return {
         email:"michel@gmail.com",
-        password:"azerty123"
+        password:"1234"
       }
     },
   created() {},
   methods:{
     SignIn(){
-let data = ({
-  "jsonrpc": "2.0",
-  "params": {
-    "db": "willonhair",
-    "login": this.email,
-    "password": this.password
-  }
-});
-
-let config = {
-  method: 'post',
-  maxBodyLength: Infinity,
-  url: 'https://willonhair.shintheo.com/web/session/authenticate',
-  headers: { 
-    'Content-Type': 'application/json', 
-  },
-  data : data
-};
-
-axios.request(config)
-.then((response: { data: any }) => {
-  //setUserid(JSON.stringify(response.data));
-  console.log(response.data);
-  localStorage.setItem('current_user_id', JSON.parse(JSON.stringify(response.data.result.uid)))
-  localStorage.setItem('current_user_partnerId',JSON.stringify(response.data.result.partner_id))
-  localStorage.setItem('current_user_name', JSON.parse(JSON.stringify(response.data.result.name)))
-  localStorage.setItem('current_username_email', JSON.parse(JSON.stringify(response.data.result.username)))
-
-  router.push({ path: '/dashboard' })
-          router.push({ name: "dashboard" });
-      
-  // window.location.href = "/builder";
-})
-.catch((error: any) => {
-  console.log(error);
-  Swal.fire({
-          text: error[0] as string,
-          icon: "error",
-          buttonsStyling: false,
-          confirmButtonText: "Try again!",
-          heightAuto: false,
-          customClass: {
-            confirmButton: "btn fw-semobold btn-light-danger",
-          },
-        }).then(() => {
-         window.location.reload();
-        });
-});
-
 }
   },
 
@@ -227,13 +176,64 @@ axios.request(config)
         submitButton.value.setAttribute("data-kt-indicator", "on");
       }
 
+
+      console.log(values)
       // Send login request
-      await store.login(values);
-      const error = Object.values(store.errors);
+
+      
+let data = ({
+  "jsonrpc": "2.0",
+  "params": {
+    "db": "willonhair",
+    "login": values.email,
+    "password": values.password
+  }
+});
+
+let config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://willonhair.shintheo.com/web/session/authenticate',
+  headers: { 
+    'Content-Type': 'application/json', 
+  },
+  data : data
+};
+
+axios.request(config)
+.then((response: { data: any }) => {
+  //setUserid(JSON.stringify(response.data));
+  console.log(response.data);
+  localStorage.setItem('current_user_id', JSON.parse(JSON.stringify(response.data.result.uid)))
+  localStorage.setItem('current_user_partnerId',JSON.stringify(response.data.result.partner_id))
+  localStorage.setItem('current_user_name', JSON.parse(JSON.stringify(response.data.result.name)))
+  localStorage.setItem('current_username_email', JSON.parse(JSON.stringify(response.data.result.username)))
+
+  router.push({ path: '/dashboard' })
+          router.push({ name: "dashboard" });
+          submitButton.value?.removeAttribute("data-kt-indicator");
+  // window.location.href = "/builder";
+})
+.catch((error: any) => {
+  console.log(error);
+  Swal.fire({
+    text: "Quelque chose s'est mal passé !",
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Essayer à nouveau!",
+          heightAuto: false,
+          customClass: {
+            confirmButton: "btn fw-semobold btn-light-danger",
+          },
+        }).then(() => {
+          submitButton.value?.removeAttribute("data-kt-indicator");
+          window.location.reload();
+        });
+});
 
 
       //Deactivate indicator
-      submitButton.value?.removeAttribute("data-kt-indicator");
+     
       // eslint-disable-next-line
         submitButton.value!.disabled = false;
     };

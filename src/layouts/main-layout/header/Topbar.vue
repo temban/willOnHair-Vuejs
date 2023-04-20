@@ -129,7 +129,7 @@ export default defineComponent({
 axios.request(config3)
 .then((response) => {
   this.image = response.data.data[0].image_1920;
-  console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
+  // console.log("rrrrrrrrrrrrrrrrrrrrrr",response.data.data[0].image_1920);
 })
 .catch((error) => {
   console.log(error);

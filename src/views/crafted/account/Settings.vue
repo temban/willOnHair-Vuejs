@@ -413,7 +413,7 @@ axios.request(config)
   setTimeout(() => {
     Swal.fire({
         icon: "success",
-        title: "Profile Saved!",
+        title: "Profil enregistré !",
         showConfirmButton: false,
         timer: 1500
     })
@@ -479,12 +479,12 @@ axios.request(config)
         updatePasswordButton.value.setAttribute("data-kt-indicator", "on");
 
         Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Es-tu sûr?",
+        text: "Vous ne pourrez pas revenir en arrière !",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        confirmButtonText: "Oui, modifier!",
+        cancelButtonText: "Non, annuler!",
         reverseButtons: true
     }).then(function(result) {
         if (result.value) {
@@ -507,7 +507,7 @@ axios.request(config)
           updatePasswordButton.value?.removeAttribute("data-kt-indicator");
 
           Swal.fire({
-            text: "Password is successfully changed!",
+            text: "Le mot de passe a été changé avec succès!",
             icon: "success",
             confirmButtonText: "Ok",
             buttonsStyling: false,

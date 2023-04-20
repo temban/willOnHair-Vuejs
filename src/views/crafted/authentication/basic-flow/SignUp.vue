@@ -12,15 +12,15 @@
       <!--begin::Heading-->
       <div class="mb-10 text-center">
         <!--begin::Title-->
-        <h1 class="text-dark mb-3">Create an Account</h1>
+        <h1 class="text-dark mb-3">Créer un compte</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
         <div class="text-gray-400 fw-semobold fs-4">
-          Already have an account?
+          Avez vous déjà un compte?
 
           <router-link to="/sign-in" class="link-primary fw-bold">
-            Sign in here
+            Se connecter ici
           </router-link>
         </div>
         <!--end::Link-->
@@ -50,7 +50,7 @@
       <div class="row fv-row mb-7">
         <!--begin::Col-->
         <div class="col-xl-6">
-          <label class="form-label fw-bold text-dark fs-6">First Name</label>
+          <label class="form-label fw-bold text-dark fs-6">Prénom</label>
           <Field
             class="form-control form-control-lg form-control-solid"
             type="text"
@@ -69,7 +69,7 @@
 
         <!--begin::Col-->
         <div class="col-xl-6">
-          <label class="form-label fw-bold text-dark fs-6">Last Name</label>
+          <label class="form-label fw-bold text-dark fs-6">Nom de famille</label>
           <Field
             class="form-control form-control-lg form-control-solid"
             type="text"
@@ -112,7 +112,7 @@
         <!--begin::Wrapper-->
         <div class="mb-1">
           <!--begin::Label-->
-          <label class="form-label fw-bold text-dark fs-6"> Password </label>
+          <label class="form-label fw-bold text-dark fs-6"> Mot de passe </label>
           <!--end::Label-->
 
           <!--begin::Input wrapper-->
@@ -155,7 +155,7 @@
         <!--end::Wrapper-->
         <!--begin::Hint-->
         <div class="text-muted">
-          Use 8 or more characters with a mix of letters, numbers & symbols.
+          Utilisez 8 caractères ou plus avec un mélange de lettres, de chiffres et de symboles.
         </div>
         <!--end::Hint-->
       </div>
@@ -164,7 +164,7 @@
       <!--begin::Input group-->
       <div class="fv-row mb-5">
         <label class="form-label fw-bold text-dark fs-6"
-          >Confirm Password</label
+          >Confirmez le mot de passe</label
         >
         <Field
           class="form-control form-control-lg form-control-solid"
@@ -191,8 +191,8 @@
             value="1"
           />
           <span class="form-check-label fw-semobold text-gray-700 fs-6">
-            I Agree &
-            <a href="#" class="ms-1 link-primary">Terms and conditions</a>.
+            Je suis d'accord au &
+            <a href="#" class="ms-1 link-primary">Termes et conditions</a>.
           </span>
         </label>
       </div>
@@ -207,7 +207,7 @@
           type="submit"
           class="btn btn-lg btn-primary"
         >
-          <span class="indicator-label"> Submit </span>
+          <span class="indicator-label"> Soumettre </span>
           <span class="indicator-progress">
             Please wait...
             <span
@@ -293,10 +293,10 @@ axios.request(config)
 .catch((error: any) => {
   console.log(error);
   Swal.fire({
-          text: error[0] as string,
+         text: "Quelque chose s'est mal passé !",
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "Essayer à nouveau!",
           heightAuto: false,
           customClass: {
             confirmButton: "btn fw-semobold btn-light-danger",
@@ -329,13 +329,27 @@ axios.request(config)
     })
     .catch(function (error: any) {
       console.log(error);
-      Swal.fire({
+
+      if( error.response.status){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'OPERATION ECHOUE',
+            text: "Ce conte exist deja!",
+            showConfirmButton: false,
+            timer: 3000
+          })
+      } else{
+        Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'OPERATION ECHOUE',
             showConfirmButton: false,
             timer: 1500
           })
+      }
+
+    
     });
     
   },
