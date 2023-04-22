@@ -2123,10 +2123,10 @@
   "resolved" "https://registry.npmjs.org/primeicons/-/primeicons-6.0.1.tgz"
   "version" "6.0.1"
 
-"primevue@^3.26.1":
-  "integrity" "sha512-I10mYyKMl0GF0KfIZK+psCpifzE6vTW8lvlgB8ukmYghKUmU1Ii879OgD7a8xWM8ijoEaO4mYZ18XXVpQ3xScw=="
-  "resolved" "https://registry.npmjs.org/primevue/-/primevue-3.26.1.tgz"
-  "version" "3.26.1"
+"primevue@^3.27.0":
+  "integrity" "sha512-oVJl8vLGNb6t5nXN41mnjR5V9Cc/eHVvmtRWiNgIC1db6OW3Qo7y2LaDEmXps/wdxX/FuJ7nuPHAZI4y8tvGyQ=="
+  "resolved" "https://registry.npmjs.org/primevue/-/primevue-3.27.0.tgz"
+  "version" "3.27.0"
 
 "prism-themes@^1.9.0":
   "integrity" "sha512-tX2AYsehKDw1EORwBps+WhBFKc2kxfoFpQAjxBndbZKr4fRmMkv47XN0BghC/K1qwodB1otbe4oF23vUTFDokw=="

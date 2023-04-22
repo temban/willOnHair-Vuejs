@@ -373,7 +373,21 @@
                         style="width: 100%;"
                         :disabledDays="propertyValues"
                         :disabledDates="leaveDateList2"
-                      ></Calendar>
+                      >
+
+                      <template #date="CalendarProps">
+      <span v-if="CalendarProps.date.selectable" class="disabled">
+        {{ CalendarProps.date.day }} 
+      </span>
+       <span v-else class="disabled1">
+        {{ CalendarProps.date.day }} 
+      </span>
+    </template>
+
+    <!-- <template #date="date, view">
+    <span :class="{ disabled: isDisabled(date) }">{{date.getDate()}}</span>
+  </template> -->
+                    </Calendar>
 
 
                     </div>
@@ -671,7 +685,7 @@ export default defineComponent({
       currentDate:Date(),
       addMins:1800,
       date: "04-04-2023", 
-      date1: "2023-04-14",
+      date1: new Date("2023-04-14"),
       employeeCalendarAttendanceIds: [Number, String],
       value: localStorage.getItem("current_user_partnerId"),
       current_user_partnerId:localStorage.getItem("current_user_partnerId"),
@@ -1097,6 +1111,7 @@ this.loading = true;
       getDaysIndex();
     })
     .catch((error) => {
+      this.loading = false;
       console.log(error);
       Swal.fire({
         icon: "error",
@@ -1670,15 +1685,35 @@ tomorrow.setDate(tomorrow.getDate()+1);
       leaveDateList2,
       holidaysStart,
       holidaysEnd
-
     };
   },
 });
 </script>
 <style lang="scss" scoped>
+.v-calendar .cell.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Create a diagonal line over disabled cells */
 
 
-
+.disabled{
+  color: rgb(255, 255, 255) !important;
+  background: #00a884 !important;
+  font-weight: 700;
+  width:2.5rem;
+  height:2.5rem;
+  padding: 0.44rem 0rem 0.4rem 0.6rem;
+}
+.disabled1{
+  color: rgb(255, 255, 255) !important;
+  background: #8b8b8b !important;
+  font-weight: 700;
+  width:2.5rem;
+  height:2.5rem;
+  padding: 0.44rem 0rem 0.4rem 0.6rem;
+}
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap");
 .row:after {
   content: "";
